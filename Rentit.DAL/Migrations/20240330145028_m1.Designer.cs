@@ -12,7 +12,7 @@ using Rentit.DAL;
 namespace Rentit.DAL.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20240328165523_m1")]
+    [Migration("20240330145028_m1")]
     partial class m1
     {
         /// <inheritdoc />

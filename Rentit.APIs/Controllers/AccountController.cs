@@ -107,7 +107,7 @@ namespace Rentit.APIs.Controllers
             };
             await userManager.AddClaimsAsync(NewAcc, UserClaims);
 
-            return Ok("Done");
+            return Ok();
         }
     }
 }

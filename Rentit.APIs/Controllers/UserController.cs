@@ -9,7 +9,7 @@ using Rentit.DAL;
 using System.IO;
 using System.Security.Claims;
 
-namespace Rentit.APIs.Controllers
+namespace Rentit.APIs.Controllers 
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -21,30 +21,30 @@ namespace Rentit.APIs.Controllers
         private readonly IRequestRentManager requestRentManager;
         private readonly IClientRepo ClientRepo;
 
-        public UserController(IClientManager _userManager ,IRequestHostManger _RequestHostManager
-            ,IPropertyManager _PropertyManager , IRequestRentManager _requestRentManager,IClientRepo _ClientRepo)
+        public UserController(IClientManager _userManager, IRequestHostManger _RequestHostManager
+            , IPropertyManager _PropertyManager, IRequestRentManager _requestRentManager, IClientRepo _ClientRepo)
         {
-            this.UserManager = _userManager;   
+            this.UserManager = _userManager;
             this.requestHostManager = _RequestHostManager;
             this.PropertyManager = _PropertyManager;
             this.requestRentManager = _requestRentManager;
-            this.ClientRepo = _ClientRepo;  
+            this.ClientRepo = _ClientRepo;
         }
 
         [HttpGet]
-        [Authorize(Policy ="UserRole")]
+        [Authorize(Policy = "UserRole")]
         [Route("UserInfo")]
-        public ActionResult<UserDto> GetUserDetails() 
+        public ActionResult<UserDto> GetUserDetails()
         {
-            int userid = Convert.ToInt32( HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)); 
-            UserDto? user = UserManager.GetUserDetails(userid); 
+            int userid = Convert.ToInt32(HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
+            UserDto? user = UserManager.GetUserDetails(userid);
             if (user == null) { return NotFound(); }
             return user;
         }
 
         [HttpPut]
         [Route("UpdateUser/{id}")]
-        public ActionResult UpdateUser (UserUpdateDto UserDto)
+        public ActionResult UpdateUser(UserUpdateDto UserDto)
         {
             var IsFound = UserManager.UpdateUser(UserDto);
             if (!IsFound) { return NotFound(); }
@@ -52,9 +52,9 @@ namespace Rentit.APIs.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = "UserRole")]
-        [Route("RequestHost")]
-        public async Task<ActionResult> AddRequestHost(UploadRequestHostDto requestHost)
+        // [Authorize(Policy = "UserRole")]
+        [Route("RequestHost/{Id}")]
+        public async Task<ActionResult> AddRequestHost([FromForm] UploadRequestHostDto requestHost,[FromRoute]int Id)
         {
 
             //PropertyAddDto? PropToAdd = JsonConvert.DeserializeObject<PropertyAddDto>(requestHost.propertyAdd);
@@ -114,8 +114,8 @@ namespace Rentit.APIs.Controllers
                 };
                 PropToAdd?.imageToAddRequestHostDtos.Add(img);
             }
-            int userid = Convert.ToInt32(HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
-            requestHostManager.AddRequestHost(PropToAdd, userid);
+         //   int userid = Convert.ToInt32(HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
+            requestHostManager.AddRequestHost(PropToAdd, Id);
             return Ok();
         }
         [HttpPut]

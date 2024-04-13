@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Rentit.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdatedDataBase : Migration
+    public partial class m1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -421,15 +421,15 @@ namespace Rentit.DAL.Migrations
                 name: "AttributesPropertyy",
                 columns: table => new
                 {
-                    AttributesId = table.Column<int>(type: "int", nullable: false),
+                    Attributes_propertyId = table.Column<int>(type: "int", nullable: false),
                     PropertiesId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AttributesPropertyy", x => new { x.AttributesId, x.PropertiesId });
+                    table.PrimaryKey("PK_AttributesPropertyy", x => new { x.Attributes_propertyId, x.PropertiesId });
                     table.ForeignKey(
-                        name: "FK_AttributesPropertyy_Attributes_AttributesId",
-                        column: x => x.AttributesId,
+                        name: "FK_AttributesPropertyy_Attributes_Attributes_propertyId",
+                        column: x => x.Attributes_propertyId,
                         principalTable: "Attributes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);

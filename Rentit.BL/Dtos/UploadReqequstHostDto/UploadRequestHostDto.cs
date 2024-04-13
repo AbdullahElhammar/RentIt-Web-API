@@ -3,12 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Rentit.BL.Dtos
 {
     public class UploadRequestHostDto
     {
+        [JsonIgnore]
         public List<IFormFile> imgs { get; set; } = new();
         public string Property_Name { get; set; } = string.Empty;
         public int Nighly_Price { get; set; }
@@ -27,6 +29,5 @@ namespace Rentit.BL.Dtos
         public int PlaceType_ID { get; set; }
         public int PropetyTypeId { get; set; }
         public List<int> attrubutesToAddDto { get; set; } = new();
-        //public string propertyAdd { get; set; } = null!;
     }
 }

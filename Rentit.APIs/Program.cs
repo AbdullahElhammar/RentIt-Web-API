@@ -25,7 +25,7 @@ namespace Rentit.APIs
 
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy(name:"OurApplicationCorsPolicy", policy =>
+                options.AddDefaultPolicy(policy =>
                 {
                     policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                 });
